@@ -9,8 +9,28 @@ f 1 = "1"
 f _ = "?"  -- 「_」は未使用変数（引数）
 
 -- 階乗
-fact 0 = 1
-fact n = n * fact (n - 1)
+-- fact 0 = 1
+-- fact n = n * fact (n - 1)
+
+-- 1つの関数定義に引数の条件を列挙するガード
+-- fact n
+--     | n == 0    = 1
+--     | otherwise = n * fact (n - 1)
+
+-- パターンマッチとガード
+-- パターンマッチは switch - case の機能強化版
+-- ガードは if - else if の羅列
+-- パターンマッチで考えて、難しいならガードを考える
+-- パターンマッチとガードの併用も可能
+
+-- 併用して無限ループを阻止
+-- fact 0 = 1
+-- fact n | n > 0 = n * fact (n - 1)
+
+-- case - of
+fact n = case n of
+    0         -> 1
+    _ | n > 0 -> n * fact (n - 1)
 
 main = do
     print "Hello Haskell"
@@ -38,3 +58,22 @@ main = do
     print $ f 1
 
     print $ fact 5
+
+    -- print $ fact (-1)  -- 実行時エラーになる
+
+    print [1, 2, 3, 4, 5]
+    print $ [1, 2, 3, 4, 5] !! 3  -- インデックス指定で要素取得
+    print [1..5]  -- 連番の生成
+    print $ [1, 2, 3] ++ [4, 5]  -- リストの結合
+    print $ 1:[2..5] -- 先頭に要素追加
+    print $ 1:2:[3..5]
+
+    -- 文字列は文字のリスト
+    print $ "abcde"
+    print $ ['a', 'b', 'c', 'd', 'e']
+    print $ ['a'..'e']
+    print $ 'a':"bcde"
+    print $ 'a':'b':"cde"
+    print $ "abc" ++ "de"
+    print $ "abcde" !! 3
+    
