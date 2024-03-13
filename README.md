@@ -1,5 +1,11 @@
 ## Taketeru's Haskell Learning Code
 
+### how to compile (memo)
+
+```
+ghc -outputdir bin -o bin/main src/web_article/study3/main.hs
+```
+
 ### links of setup
 
 - https://www.haskell.org/ghcup/

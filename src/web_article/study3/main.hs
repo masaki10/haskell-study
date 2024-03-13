@@ -32,6 +32,45 @@ fact n = case n of
     0         -> 1
     _ | n > 0 -> n * fact (n - 1)
 
+-- 引数でリストの先頭要素を取り出す
+-- first (x:xs) = x
+first (x:_) = x  -- xsは使わないので慣習的に_と定義
+-- 複数重ねることも可
+second (_:x:_) = x
+
+-- リスト用の既存関数を定義してみる
+length' []     = 0
+length' (_:xs) = 1 + length' xs
+
+sum' []     = 0
+sum' (x:xs) = x + sum' xs
+
+product' []     = 1
+product' (x:xs) = x * product' xs
+
+take' _ []        = []
+take' n _ | n < 1 = []
+take' n (x:xs)    = x : take' (n - 1) xs
+
+drop' _ [] = []
+drop' n xs | n < 1 = xs
+drop' n (x:xs) = drop' (n - 1) xs
+
+reverse' []     = []
+reverse' (x:xs) = reverse' xs ++ [x]
+
+-- タプルを利用して、関数で複数の値を返す
+addsub x y = (x + y, x - y)
+
+-- x [1, "a"]
+-- o (1, "a")
+
+perpPoint (p, q) (a, b, c) = (x, y)
+    where
+        d = b * p - a * q
+        x = (a * c + b * d) / (a * a + b * b)
+        y = (b * c - a * d) / (a * a + b * b)
+
 main = do
     print "Hello Haskell"
     -- $ は()の代わり
@@ -76,4 +115,39 @@ main = do
     print $ 'a':'b':"cde"
     print $ "abc" ++ "de"
     print $ "abcde" !! 3
-    
+
+    print $ first [1..5]
+
+    print $ second [1..5]
+    print $ second "abcde"
+
+    -- リスト関係の関数
+    print $ length [1..5]
+    print $ sum [1..5]
+    print $ product [1..5]  -- 全て掛け算
+    print $ take 2 [1..5]  -- 先頭からn個を抽出
+    print $ drop 2 [1..5]  -- 先頭からn個を落とす
+    print $ reverse [1..5]  -- 逆順にする
+
+    print $ length' [1..5]
+    print $ sum' [1..5]
+    print $ product' [1..5]
+    print $ take' 2 [1..5]
+    print $ drop' 2 [1..5]
+    print $ reverse' [1..5]
+
+    print $ addsub 1 2
+    let (a, s) = addsub 1 2
+    print a
+    print s
+
+    let p2 = (1, 2)
+    print $ fst p2
+    print $ snd p2
+
+    let p3 = (1, 2, 3)
+    print p3
+    let (_, _, p3z) = p3
+    print $ p3z
+
+    print $ perpPoint (0, 2) (1, -1, 0)
