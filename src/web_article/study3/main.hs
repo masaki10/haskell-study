@@ -1,4 +1,5 @@
 -- https://qiita.com/7shi/items/145f1234f8ec2af923ef
+import Data.Char
 
 add x y = x + y
 
@@ -70,6 +71,23 @@ perpPoint (p, q) (a, b, c) = (x, y)
         d = b * p - a * q
         x = (a * c + b * d) / (a * a + b * b)
         y = (b * c - a * d) / (a * a + b * b)
+
+rot13ch ch 
+    |  'A' <= ch && ch <= 'M'
+    || 'a' <= ch && ch <= 'm' = chr $ ord ch + 13
+    |  'N' <= ch && ch <= 'Z'
+    || 'n' <= ch && ch <= 'z' = chr $ ord ch - 13
+
+rot13 ""     = ""
+rot13 (x:xs) = rot13ch x : rot13 xs
+
+insert x [] = [x]
+insert x (y:ys)
+    | x < y     = x:y:ys
+    | otherwise = y : insert x ys
+
+isort []     = []
+isort (x:xs) = insert x (isort xs)
 
 main = do
     print "Hello Haskell"
@@ -151,3 +169,13 @@ main = do
     print $ p3z
 
     print $ perpPoint (0, 2) (1, -1, 0)
+
+    print $ ord 'A'
+    print $ chr 65
+    print $ chr 66
+
+    print $ rot13 "ABCDE"
+    print $ rot13 "taketeru"
+    print $ rot13 $ rot13 "taketeru"
+
+    print $ isort [4, 6, 9, 8, 3, 5, 1, 7, 2]
